@@ -179,12 +179,12 @@ app.post('/api/wallet/withdraw', (req, res) => {
 
 // Admin Portal Route
 app.get('/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+  res.sendFile('admin.html', { root: path.join(__dirname, 'public') });
 });
 
 // Fallback to index.html for SPA routes
 app.use((req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile('index.html', { root: path.join(__dirname, 'public') });
 });
 
 // Start Server
