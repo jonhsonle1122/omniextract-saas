@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniExtract | Creator Admin & Settlement Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .admin-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .auth-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      max-width: 440px;
+      margin: 80px auto;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .admin-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body class="dark-theme">
+  <!-- Glowing Background Orbs -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+
+  <div class="admin-container">
+    <!-- Top Bar -->
+    <div class="admin-header">
+      <div class="brand">
+        <a href="/" style="text-decoration: none; color: inherit;" class="brand">
+          <div class="brand-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">OmniExtract</span>
+            <span class="brand-badge" style="background: rgba(244, 63, 94, 0.2); color: #fb7185; border-color: rgba(244, 63, 94, 0.4);">Admin Portal</span>
+          </div>
+        </a>
+      </div>
+      <div>
+        <a href="/" class="btn btn-secondary">← Back to Public Site</a>
+      </div>
+    </div>
+
+    <!-- Login Screen (Visible until PIN verified) -->
+    <div id="admin-login-view" class="auth-card">
+      <div style="font-size: 2.5rem; margin-bottom: 12px;">🔐</div>
+      <h2 style="font-family: var(--font-heading); margin-bottom: 8px;">Creator Authentication</h2>
+      <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 24px;">Enter your master admin key to view real-time revenue and authorize profit withdrawals.</p>
+      
+      <div class="form-group" style="text-align: left;">
+        <label for="admin-passcode">Master Admin Key</label>
+        <input type="password" id="admin-passcode" class="input-text" placeholder="Enter admin key..." value="omni_admin_2026">
+      </div>
+      <button id="btn-admin-login" class="btn btn-primary btn-block">Unlock Management Console</button>
+      <div id="admin-login-err" class="status-msg error" style="margin-top: 12px;"></div>
+    </div>
+
+    <!-- Dashboard Content (Protected) -->
+    <div id="admin-dashboard-view" style="display: none;">
+      <!-- Stats Row -->
+      <div class="admin-stats-grid">
+        <div class="metric-card">
+          <span class="metric-label">Base USDC Revenue</span>
+          <span class="metric-value gradient-value" id="admin-usdc-val">0.0000 USDC</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">VietQR Fiat Collected</span>
+          <span class="metric-value" style="color: #38bdf8;" id="admin-vnd-val">0 VND</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-label">Total Paid Requests</span>
+          <span class="metric-value" id="admin-paid-req">0 calls</span>
+        </div>
+      </div>
+
+      <!-- Wallet & Withdrawal Card -->
+      <div class="admin-card">
+        <h3 style="font-family: var(--font-heading); margin-bottom: 16px;">💰 Profit Withdrawal (Rút Tiền Về Ví Riêng)</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 18px;">
+          Revenue from AI bot x402 micropayments is stored safely in your Agent Base wallet:
+          <span class="mono-text" id="admin-agent-wallet" style="margin-left: 6px;">0x...</span>
+        </p>
+
+        <div style="background: rgba(0, 0, 0, 0.35); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+          <div class="form-group">
+            <label for="admin-target-address">Your Personal Destination Address (Base / Ethereum L2)</label>
+            <input type="text" id="admin-target-address" class="input-text" placeholder="0xYourPersonalWalletAddress...">
+          </div>
+          <div class="form-group">
+            <label for="admin-withdraw-amount">Amount USDC to Withdraw</label>
+            <div class="input-with-button">
+              <input type="number" id="admin-withdraw-amount" class="input-text" placeholder="0.50" step="0.001">
+              <button id="btn-admin-withdraw" class="btn btn-primary">Authorize & Transfer</button>
+            </div>
+          </div>
+          <div id="admin-withdraw-status" class="status-msg"></div>
+        </div>
+      </div>
+
+      <!-- Ledger Feed -->
+      <div class="admin-card">
+        <h3 style="font-family: var(--font-heading); margin-bottom: 16px;">📊 Real-time Transaction Ledger</h3>
+        <div class="tx-history-feed" id="admin-tx-feed">
+          <div class="tx-loading">Loading transaction history...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const MASTER_KEY = 'omni_admin_2026';
+      const loginView = document.getElementById('admin-login-view');
+      const dashView = document.getElementById('admin-dashboard-view');
+      const passcodeEl = document.getElementById('admin-passcode');
+      const loginBtn = document.getElementById('btn-admin-login');
+      const loginErr = document.getElementById('admin-login-err');
+
+      loginBtn.addEventListener('click', () => {
+        if (passcodeEl.value.trim() === MASTER_KEY) {
+          loginView.style.display = 'none';
+          dashView.style.display = 'block';
+          loadAdminData();
+        } else {
+          loginErr.textContent = 'Invalid Master Key. Access denied.';
+        }
+      });
+
+      async function loadAdminData() {
+        try {
+          const res = await fetch('/api/wallet');
+          const json = await res.json();
+          if (json.status === 'success') {
+            const data = json.data;
+            document.getElementById('admin-usdc-val').textContent = `${data.totalRevenueUSDC.toFixed(4)} USDC`;
+            document.getElementById('admin-vnd-val').textContent = `${data.totalRevenueVND.toLocaleString()} VND`;
+            document.getElementById('admin-paid-req').textContent = `${data.paidRequests} calls`;
+            document.getElementById('admin-agent-wallet').textContent = data.address;
+
+            // Render transactions
+            renderAdminLedger();
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
+      async function renderAdminLedger() {
+        const feed = document.getElementById('admin-tx-feed');
+        feed.innerHTML = `
+          <div class="tx-item">
+            <div class="tx-item-left">
+              <span class="tx-type">x402 Micropayment (Base Network)</span>
+              <span class="tx-hash">From: Autonomous Agent Swarm #842</span>
+            </div>
+            <span class="tx-amount">+0.0050 USDC</span>
+          </div>
+          <div class="tx-item">
+            <div class="tx-item-left">
+              <span class="tx-type">API Key Pack Purchase (Pro Sentinel)</span>
+              <span class="tx-hash">Tx: 0x4a9b...8821</span>
+            </div>
+            <span class="tx-amount">+4.5000 USDC</span>
+          </div>
+          <div class="tx-item">
+            <div class="tx-item-left">
+              <span class="tx-type">Starter Pack (VietQR)</span>
+              <span class="tx-hash">Bank MB: OMNI ORD-9812</span>
+            </div>
+            <span class="tx-amount">+12,500 VND</span>
+          </div>
+        `;
+      }
+
+      document.getElementById('btn-admin-withdraw')?.addEventListener('click', async () => {
+        const targetAddress = document.getElementById('admin-target-address').value.trim();
+        const amount = document.getElementById('admin-withdraw-amount').value.trim();
+        const statusEl = document.getElementById('admin-withdraw-status');
+
+        if (!targetAddress || !amount) {
+          statusEl.textContent = 'Please provide destination address and USDC amount.';
+          statusEl.className = 'status-msg error';
+          return;
+        }
+
+        try {
+          const res = await fetch('/api/wallet/withdraw', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Admin-Key': MASTER_KEY
+            },
+            body: JSON.stringify({ targetAddress, amountUSDC: parseFloat(amount) })
+          });
+          const json = await res.json();
+          if (json.status === 'success') {
+            statusEl.textContent = `✓ Successfully transferred ${amount} USDC to ${targetAddress}. Tx: ${json.transaction.txHash.substring(0, 16)}...`;
+            statusEl.className = 'status-msg success';
+            loadAdminData();
+          } else {
+            statusEl.textContent = `Withdrawal failed: ${json.error}`;
+            statusEl.className = 'status-msg error';
+          }
+        } catch (err) {
+          statusEl.textContent = `Network error: ${err.message}`;
+          statusEl.className = 'status-msg error';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

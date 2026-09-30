@@ -37,21 +37,13 @@
         <a href="#playground" class="nav-item">Playground</a>
         <a href="#a2a-protocol" class="nav-item">x402 Protocol</a>
         <a href="#pricing" class="nav-item">Pricing</a>
-        <a href="#settlement" class="nav-item">Settlement Ledger</a>
         <a href="/.well-known/erc-8004.json" target="_blank" class="nav-item manifest-link">
           <span class="pulse-dot"></span> ERC-8004 Manifest
         </a>
       </nav>
 
       <div class="header-actions">
-        <button id="btn-open-wallet" class="btn btn-secondary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-            <circle cx="8" cy="12" r="2"></circle>
-            <path d="M16 12h2"></path>
-          </svg>
-          <span id="nav-wallet-balance">0.00 USDC</span>
-        </button>
+        <a href="/admin" class="btn btn-ghost" title="Owner Admin Portal">Owner Portal</a>
         <a href="#pricing" class="btn btn-primary">Get API Key</a>
       </div>
     </div>
@@ -85,28 +77,22 @@
         <!-- Real-Time Metrics Strip -->
         <div class="metrics-grid">
           <div class="metric-card">
-            <span class="metric-label">Agent Base Wallet</span>
+            <span class="metric-label">Network Settlement</span>
             <div class="wallet-display">
-              <span id="metric-wallet-address" class="mono-text">Loading...</span>
-              <button id="btn-copy-address" class="btn-icon" title="Copy Wallet Address">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                </svg>
-              </button>
+              <span class="mono-text">Base L2 (Chain 8453)</span>
             </div>
           </div>
           <div class="metric-card">
-            <span class="metric-label">Revenue Collected</span>
-            <span class="metric-value gradient-value" id="metric-revenue">0.0000 USDC</span>
+            <span class="metric-label">Inference Engine</span>
+            <span class="metric-value highlight-value">Gemini 3.8 Flash</span>
           </div>
           <div class="metric-card">
             <span class="metric-label">Requests Processed</span>
-            <span class="metric-value" id="metric-requests">0 calls</span>
+            <span class="metric-value gradient-value" id="metric-requests">0 calls</span>
           </div>
           <div class="metric-card">
-            <span class="metric-label">Protocol Settlement</span>
-            <span class="metric-value highlight-value">x402 (0.005 USDC/call)</span>
+            <span class="metric-label">Protocol Pricing</span>
+            <span class="metric-value highlight-value">0.005 USDC/call</span>
           </div>
         </div>
       </div>
@@ -383,54 +369,6 @@ curl https://omniextract.agent/.well-known/erc-8004.json</code></pre>
       </div>
     </section>
 
-    <!-- Revenue & Settlement Ledger Section (Giai đoạn 4) -->
-    <section id="settlement" class="section settlement-section">
-      <div class="container">
-        <div class="section-header">
-          <div class="section-tag">Agent Settlement & Creator Payout</div>
-          <h2 class="section-title">Live Revenue Ledger</h2>
-          <p class="section-desc">Track real-time USDC micropayments collected from AI agents and fiat VietQR settlements. Withdraw anytime.</p>
-        </div>
-
-        <div class="ledger-grid">
-          <!-- Balance Summary Card -->
-          <div class="ledger-card balance-card">
-            <h3>Revenue Balance</h3>
-            <div class="balance-display">
-              <div class="balance-item">
-                <span class="bal-label">Base USDC Balance:</span>
-                <span class="bal-amount" id="ledger-usdc-val">0.0000 USDC</span>
-              </div>
-              <div class="balance-item">
-                <span class="bal-label">VietQR Fiat Collected:</span>
-                <span class="bal-amount" id="ledger-vnd-val">0 VND</span>
-              </div>
-            </div>
-
-            <div class="withdraw-box">
-              <h4>Creator Profit Settlement (Rút Tiền)</h4>
-              <p>Transfer accumulated USDC revenue from the Agent Base wallet to your personal wallet.</p>
-              <div class="withdraw-form">
-                <input type="text" id="withdraw-address-input" class="input-text" placeholder="Your Base/Ethereum address (0x...)">
-                <div class="input-with-button">
-                  <input type="number" id="withdraw-amount-input" class="input-text" placeholder="Amount USDC" step="0.001">
-                  <button id="btn-execute-withdraw" class="btn btn-primary">Withdraw USDC</button>
-                </div>
-              </div>
-              <div id="withdraw-msg" class="status-msg"></div>
-            </div>
-          </div>
-
-          <!-- Transaction Feed -->
-          <div class="ledger-card history-card">
-            <h3>Recent Settlements & Transactions</h3>
-            <div class="tx-history-feed" id="tx-history-feed">
-              <div class="tx-loading">Loading transaction ledger...</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <!-- Checkout & Payment Modal -->

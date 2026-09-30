@@ -142,9 +142,19 @@ app.post('/api/checkout/verify', async (req, res) => {
   }
 });
 
-// 8. Withdrawal / Profit Settlement (Transfer revenue to personal wallet)
+// 8. Withdrawal / Profit Settlement (Protected with Admin Master Key)
 app.post('/api/wallet/withdraw', (req, res) => {
   try {
+    const adminKey = req.headers['x-admin-key'] || req.body.adminKey;
+    const expectedKey = process.env.ADMIN_KEY || 'omni_admin_2026';
+
+    if (adminKey !== expectedKey) {
+      return res.status(403).json({
+        status: 'error',
+        error: 'Forbidden: Valid Admin Master Key required to withdraw funds.'
+      });
+    }
+
     const { targetAddress, amountUSDC } = req.body;
     if (!targetAddress || !amountUSDC) {
       return res.status(400).json({
@@ -165,6 +175,11 @@ app.post('/api/wallet/withdraw', (req, res) => {
       error: error.message
     });
   }
+});
+
+// Admin Portal Route
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
 // Fallback to index.html for SPA routes
