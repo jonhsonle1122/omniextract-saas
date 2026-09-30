@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniExtract & AgentGuard | Autonomous AI Micro-SaaS & x402 Sentinel</title>
+  <meta name="description" content="Production-ready Micro-SaaS: AI-ready Web-to-Markdown Extractor & Prompt Injection Sentinel with x402 Web3 Micropayments on Base and VietQR fiat billing.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="dark-theme">
+  <!-- Glowing Background Orbs -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Header / Navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">OmniExtract</span>
+          <span class="brand-badge">AgentGuard</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#playground" class="nav-item">Playground</a>
+        <a href="#a2a-protocol" class="nav-item">x402 Protocol</a>
+        <a href="#pricing" class="nav-item">Pricing</a>
+        <a href="#settlement" class="nav-item">Settlement Ledger</a>
+        <a href="/.well-known/erc-8004.json" target="_blank" class="nav-item manifest-link">
+          <span class="pulse-dot"></span> ERC-8004 Manifest
+        </a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="btn-open-wallet" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <circle cx="8" cy="12" r="2"></circle>
+            <path d="M16 12h2"></path>
+          </svg>
+          <span id="nav-wallet-balance">0.00 USDC</span>
+        </button>
+        <a href="#pricing" class="btn btn-primary">Get API Key</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero-section">
+      <div class="hero-container">
+        <div class="hero-badge">
+          <span class="live-indicator"></span>
+          <span>AUTONOMOUS AGENT ACTIVE ON BASE NETWORK</span>
+          <span class="hero-chip">Gemini 3.8 Flash Engine</span>
+        </div>
+
+        <h1 class="hero-title">
+          Clean Web Intelligence & <br>
+          <span class="gradient-text">Prompt Security Sentinel</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Extract noise-free, LLM-ready Markdown from any URL and sanitize untrusted agent prompts against jailbreaks and PII leaks. Programmatically monetized via <strong>x402 HTTP micropayments</strong> and domestic <strong>VietQR</strong>.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#playground" class="btn btn-hero-primary" id="btn-hero-try">Try Live Sandbox</a>
+          <button class="btn btn-hero-secondary" id="btn-hero-agent-test">Simulate x402 Micropayment</button>
+          <a href="/.well-known/erc-8004.json" target="_blank" class="btn btn-ghost" id="btn-hero-spec">ERC-8004 Specs</a>
+        </div>
+
+        <!-- Real-Time Metrics Strip -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="metric-label">Agent Base Wallet</span>
+            <div class="wallet-display">
+              <span id="metric-wallet-address" class="mono-text">Loading...</span>
+              <button id="btn-copy-address" class="btn-icon" title="Copy Wallet Address">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Revenue Collected</span>
+            <span class="metric-value gradient-value" id="metric-revenue">0.0000 USDC</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Requests Processed</span>
+            <span class="metric-value" id="metric-requests">0 calls</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Protocol Settlement</span>
+            <span class="metric-value highlight-value">x402 (0.005 USDC/call)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Live Playground Section -->
+    <section id="playground" class="section playground-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Interactive Sandbox</div>
+          <h2 class="section-title">Test the Services in Real-Time</h2>
+          <p class="section-desc">Experience LLM Markdown extraction and Prompt Injection defense. Use your API key or test with guest credits.</p>
+        </div>
+
+        <!-- Playground Controls Card -->
+        <div class="playground-card">
+          <!-- Auth Bar -->
+          <div class="auth-bar">
+            <div class="auth-mode-select">
+              <span class="auth-label">Authentication Mode:</span>
+              <label class="radio-pill">
+                <input type="radio" name="authMode" value="guest" checked id="auth-guest">
+                <span>Guest Demo (5 Free Calls)</span>
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="authMode" value="custom" id="auth-custom">
+                <span>My API Key</span>
+              </label>
+              <label class="radio-pill">
+                <input type="radio" name="authMode" value="x402" id="auth-x402">
+                <span>Agent x402 Micropayment Proof</span>
+              </label>
+            </div>
+            <div class="auth-input-container" id="auth-input-box" style="display:none;">
+              <input type="text" id="custom-auth-value" class="input-text" placeholder="Enter API Key (omni_...) or Base Tx Hash (0x...)">
+            </div>
+          </div>
+
+          <!-- Tabs for Services -->
+          <div class="tabs-header">
+            <button class="tab-btn active" data-tab="tab-extract" id="tab-btn-extract">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+              1. Web to LLM Markdown Extractor
+            </button>
+            <button class="tab-btn" data-tab="tab-guard" id="tab-btn-guard">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              2. Agent Prompt Injection & PII Sentinel
+            </button>
+          </div>
+
+          <!-- Tab Content 1: Web Extractor -->
+          <div class="tab-content active" id="tab-extract">
+            <div class="tab-pane-grid">
+              <div class="input-column">
+                <div class="form-group">
+                  <label for="extract-url-input">Target Webpage URL</label>
+                  <div class="input-with-button">
+                    <input type="url" id="extract-url-input" class="input-text" placeholder="https://en.wikipedia.org/wiki/Artificial_intelligence" value="https://news.ycombinator.com">
+                    <button class="btn btn-secondary" id="btn-use-sample-html" title="Use Sample HTML Markup">Sample HTML</button>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="extract-raw-html">Or Provide Raw HTML String (Optional)</label>
+                  <textarea id="extract-raw-html" class="textarea-code" rows="7" placeholder="Paste raw <html>...</html> or leave blank to crawl URL directly..."></textarea>
+                </div>
+
+                <div class="action-footer">
+                  <button id="btn-execute-extract" class="btn btn-primary btn-block">
+                    <span class="btn-text">Extract Clean Markdown</span>
+                    <span class="spinner" style="display:none;"></span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Output Column -->
+              <div class="output-column">
+                <div class="output-header">
+                  <span class="output-title">Extracted Output & Metadata</span>
+                  <div class="output-meta-chips" id="extract-chips">
+                    <span class="chip chip-tokens" id="chip-tokens">0 Tokens</span>
+                    <span class="chip chip-words" id="chip-words">0 Words</span>
+                    <span class="chip chip-time" id="chip-time">0 min read</span>
+                  </div>
+                </div>
+                <div class="output-body">
+                  <pre id="extract-result-code" class="code-preview">Click "Extract Clean Markdown" to see real-time parsing...</pre>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab Content 2: Prompt Guard -->
+          <div class="tab-content" id="tab-guard">
+            <div class="tab-pane-grid">
+              <div class="input-column">
+                <div class="form-group">
+                  <div class="label-with-presets">
+                    <label for="guard-prompt-input">Prompt or Agent Input to Audit</label>
+                    <div class="preset-links">
+                      <span>Presets:</span>
+                      <a href="#" class="preset-item" data-preset="jailbreak">DAN Jailbreak</a> |
+                      <a href="#" class="preset-item" data-preset="pii">PII & Key Leak</a> |
+                      <a href="#" class="preset-item" data-preset="clean">Normal Query</a>
+                    </div>
+                  </div>
+                  <textarea id="guard-prompt-input" class="textarea-code" rows="10" placeholder="Type or paste untrusted prompt..."></textarea>
+                </div>
+
+                <div class="action-footer">
+                  <button id="btn-execute-guard" class="btn btn-primary btn-block">
+                    <span class="btn-text">Audit Prompt & Sanitize</span>
+                    <span class="spinner" style="display:none;"></span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Output Column -->
+              <div class="output-column">
+                <div class="output-header">
+                  <span class="output-title">Security Audit Report</span>
+                  <div class="output-meta-chips">
+                    <span class="chip" id="chip-safety">Awaiting Input</span>
+                    <span class="chip chip-score" id="chip-threat-score">Score: --</span>
+                  </div>
+                </div>
+                <div class="output-body">
+                  <div id="guard-report-visual" class="guard-visual-report">
+                    <div class="threat-meter-container">
+                      <div class="threat-meter-bar" id="threat-meter-bar" style="width: 0%;"></div>
+                    </div>
+                    <div class="findings-list" id="findings-list">
+                      <div class="finding-empty">Run the audit to inspect threats, jailbreaks, and sensitive data.</div>
+                    </div>
+                  </div>
+                  <div class="sanitized-prompt-box">
+                    <div class="box-label">Sanitized / Masked Output:</div>
+                    <pre id="guard-sanitized-code" class="code-preview">--</pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- x402 Protocol & ERC-8004 Section -->
+    <section id="a2a-protocol" class="section protocol-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Machine-To-Machine Settlement</div>
+          <h2 class="section-title">The x402 Autonomous Economy</h2>
+          <p class="section-desc">Designed for the agentic web. When an AI Agent invokes our API without credentials, the server immediately returns standard <code>HTTP 402 Payment Required</code> with Base USDC settlement instructions.</p>
+        </div>
+
+        <div class="protocol-grid">
+          <!-- Flow Explanation -->
+          <div class="protocol-card">
+            <h3>How AI Agents Pay Autonomously</h3>
+            <ol class="step-list">
+              <li>
+                <strong>Agent Initiates Call:</strong> Bot sends <code>POST /api/v1/extract</code>.
+              </li>
+              <li>
+                <strong>x402 Challenge:</strong> Server responds with <code>402 Payment Required</code>, specifying price (0.005 USDC) and Base wallet address.
+              </li>
+              <li>
+                <strong>On-Chain Micropayment:</strong> Agent broadcasts USDC transfer on Base (network fees &lt; $0.001).
+              </li>
+              <li>
+                <strong>Immediate Fulfillment:</strong> Agent replays request with header <code>X-Payment-Proof: &lt;txHash&gt;</code>. Server delivers result instantly.
+              </li>
+            </ol>
+            <div class="manifest-card-link">
+              <a href="/.well-known/erc-8004.json" target="_blank" class="btn btn-secondary btn-block">
+                View ERC-8004 Autonomous Agent Capability Manifest
+              </a>
+            </div>
+          </div>
+
+          <!-- Code Snippet -->
+          <div class="protocol-card code-card">
+            <div class="code-card-header">
+              <span>Agent Integration Example (Python / cURL)</span>
+              <button class="btn-copy-code" id="btn-copy-curl">Copy</button>
+            </div>
+            <pre class="code-block" id="curl-example"><code># 1. AI Agent detects HTTP 402 and pays via Base:
+curl -X POST https://omniextract.agent/api/v1/extract \
+  -H "Content-Type: application/json" \
+  -H "X-Payment-Proof: 0x8f23...a7b4" \
+  -d '{"url": "https://example.com/research-paper"}'
+
+# 2. Or query on-chain discovery manifest:
+curl https://omniextract.agent/.well-known/erc-8004.json</code></pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section pricing-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Flexible Monetization</div>
+          <h2 class="section-title">Transparent Tiered Pricing</h2>
+          <p class="section-desc">Support both human developers (instant VietQR & crypto) and AI swarms (per-call x402 micropayments).</p>
+        </div>
+
+        <div class="pricing-cards-grid">
+          <!-- Tier 1 -->
+          <div class="pricing-card">
+            <div class="card-badge">Developer Pack</div>
+            <h3 class="plan-name">Starter Pack</h3>
+            <div class="plan-price">
+              <span class="price-val">0.50</span> <span class="price-currency">USDC</span>
+              <span class="price-alt">/ 12,500 ₫</span>
+            </div>
+            <p class="plan-desc">Great for indie hackers & individual autonomous developers.</p>
+            <ul class="plan-features">
+              <li>✓ <strong>100 API Credits</strong></li>
+              <li>✓ Web-to-Markdown Extractor</li>
+              <li>✓ Prompt Injection Guard & PII Masker</li>
+              <li>✓ VietQR & Base USDC Instant Activation</li>
+              <li>✓ Rate limit: 60 req/min</li>
+            </ul>
+            <button class="btn btn-secondary btn-block btn-buy-plan" data-plan="starter" id="btn-buy-starter">Purchase Starter</button>
+          </div>
+
+          <!-- Tier 2 (Highlighted) -->
+          <div class="pricing-card popular">
+            <div class="card-badge popular-badge">Most Popular</div>
+            <h3 class="plan-name">Pro Sentinel</h3>
+            <div class="plan-price">
+              <span class="price-val">4.50</span> <span class="price-currency">USDC</span>
+              <span class="price-alt">/ 110,000 ₫</span>
+            </div>
+            <p class="plan-desc">Designed for production AI applications and high-frequency agents.</p>
+            <ul class="plan-features">
+              <li>✓ <strong>1,000 API Credits</strong></li>
+              <li>✓ Unlimited Web Scraping & Token Estimation</li>
+              <li>✓ High-priority Latency Queue</li>
+              <li>✓ Full Jailbreak & PII Sentinel rules</li>
+              <li>✓ VietQR & Base USDC Instant Activation</li>
+            </ul>
+            <button class="btn btn-primary btn-block btn-buy-plan" data-plan="pro" id="btn-buy-pro">Purchase Pro</button>
+          </div>
+
+          <!-- Tier 3 -->
+          <div class="pricing-card">
+            <div class="card-badge">Swarm Tier</div>
+            <h3 class="plan-name">Autonomous Swarm</h3>
+            <div class="plan-price">
+              <span class="price-val">35.00</span> <span class="price-currency">USDC</span>
+              <span class="price-alt">/ 875,000 ₫</span>
+            </div>
+            <p class="plan-desc">For large multi-agent systems and enterprise bot fleets.</p>
+            <ul class="plan-features">
+              <li>✓ <strong>10,000 API Credits</strong></li>
+              <li>✓ Dedicated throughput</li>
+              <li>✓ Custom jailbreak regex rules</li>
+              <li>✓ 24/7 Agent Uptime Guarantee</li>
+              <li>✓ Multi-wallet settlement</li>
+            </ul>
+            <button class="btn btn-secondary btn-block btn-buy-plan" data-plan="enterprise" id="btn-buy-enterprise">Purchase Swarm</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Revenue & Settlement Ledger Section (Giai đoạn 4) -->
+    <section id="settlement" class="section settlement-section">
+      <div class="container">
+        <div class="section-header">
+          <div class="section-tag">Agent Settlement & Creator Payout</div>
+          <h2 class="section-title">Live Revenue Ledger</h2>
+          <p class="section-desc">Track real-time USDC micropayments collected from AI agents and fiat VietQR settlements. Withdraw anytime.</p>
+        </div>
+
+        <div class="ledger-grid">
+          <!-- Balance Summary Card -->
+          <div class="ledger-card balance-card">
+            <h3>Revenue Balance</h3>
+            <div class="balance-display">
+              <div class="balance-item">
+                <span class="bal-label">Base USDC Balance:</span>
+                <span class="bal-amount" id="ledger-usdc-val">0.0000 USDC</span>
+              </div>
+              <div class="balance-item">
+                <span class="bal-label">VietQR Fiat Collected:</span>
+                <span class="bal-amount" id="ledger-vnd-val">0 VND</span>
+              </div>
+            </div>
+
+            <div class="withdraw-box">
+              <h4>Creator Profit Settlement (Rút Tiền)</h4>
+              <p>Transfer accumulated USDC revenue from the Agent Base wallet to your personal wallet.</p>
+              <div class="withdraw-form">
+                <input type="text" id="withdraw-address-input" class="input-text" placeholder="Your Base/Ethereum address (0x...)">
+                <div class="input-with-button">
+                  <input type="number" id="withdraw-amount-input" class="input-text" placeholder="Amount USDC" step="0.001">
+                  <button id="btn-execute-withdraw" class="btn btn-primary">Withdraw USDC</button>
+                </div>
+              </div>
+              <div id="withdraw-msg" class="status-msg"></div>
+            </div>
+          </div>
+
+          <!-- Transaction Feed -->
+          <div class="ledger-card history-card">
+            <h3>Recent Settlements & Transactions</h3>
+            <div class="tx-history-feed" id="tx-history-feed">
+              <div class="tx-loading">Loading transaction ledger...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Checkout & Payment Modal -->
+  <div class="modal-overlay" id="checkout-modal" style="display: none;">
+    <div class="modal-card">
+      <button class="modal-close" id="btn-close-modal">&times;</button>
+      <div class="modal-header">
+        <h3 id="modal-plan-title">Checkout: Starter Pack</h3>
+        <p class="modal-subtitle">Choose your preferred payment method:</p>
+      </div>
+
+      <!-- Payment Method Tabs -->
+      <div class="payment-tabs">
+        <button class="payment-tab active" data-method="usdc" id="pay-tab-usdc">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v12M8 10h8M8 14h8"></path>
+          </svg>
+          Base Network (USDC)
+        </button>
+        <button class="payment-tab" data-method="vietqr" id="pay-tab-vietqr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+            <path d="M7 7h3v3H7zM14 7h3v3h-3zM7 14h3v3H7zM14 14h3v3h-3z"></path>
+          </svg>
+          VietQR (Ngân hàng VN)
+        </button>
+      </div>
+
+      <!-- Payment Body -->
+      <div class="payment-modal-body">
+        <div class="qr-container">
+          <img id="payment-qr-image" src="" alt="Payment QR Code" class="qr-code-img">
+          <div class="qr-loading" id="qr-loading-spinner">Generating QR...</div>
+        </div>
+
+        <div class="payment-instructions" id="payment-instructions-box">
+          <div class="instruction-line">
+            <span class="ins-label">Amount:</span>
+            <span class="ins-val highlight-val" id="ins-amount">--</span>
+          </div>
+          <div class="instruction-line">
+            <span class="ins-label">Recipient:</span>
+            <span class="ins-val mono-text" id="ins-recipient">--</span>
+          </div>
+          <div class="instruction-line" id="ins-memo-row">
+            <span class="ins-label">Memo / Order ID:</span>
+            <span class="ins-val mono-text" id="ins-memo">--</span>
+          </div>
+        </div>
+
+        <!-- Verification / Simulator Button -->
+        <div class="modal-actions">
+          <button id="btn-confirm-payment" class="btn btn-primary btn-block">
+            <span class="btn-text">Confirm Payment & Issue API Key</span>
+            <span class="spinner" style="display:none;"></span>
+          </button>
+        </div>
+
+        <!-- Newly Issued Key Display -->
+        <div class="issued-key-banner" id="issued-key-banner" style="display:none;">
+          <div class="banner-title">Success! Your API Key has been activated:</div>
+          <div class="key-box">
+            <input type="text" readonly id="newly-issued-key" class="input-text mono-text">
+            <button id="btn-copy-issued-key" class="btn btn-secondary">Copy Key</button>
+          </div>
+          <p class="banner-hint">Your key has been automatically saved and loaded into the Playground above!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-container">
+      <div class="footer-brand">
+        <span class="footer-title">OmniExtract & AgentGuard</span>
+        <p>Built with Google Antigravity & Agent Commerce Engine.</p>
+      </div>
+      <div class="footer-links">
+        <a href="/.well-known/erc-8004.json" target="_blank">ERC-8004 Manifest</a>
+        <a href="/health" target="_blank">System Health</a>
+        <a href="#playground">Interactive Sandbox</a>
+      </div>
+      <div class="footer-copy">
+        &copy; 2026 Autonomous AI Agent Economy.
+      </div>
+    </div>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
